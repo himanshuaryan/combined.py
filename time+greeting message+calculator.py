@@ -1,9 +1,8 @@
-print("code by @himanshuaryan".center(110))
-
 import time #importing time
 
-timestamp = time.strftime('%H:%M:%S')
-t = timestamp #import full time
+print("code by @himanshuaryan".center(110))
+
+t = time.strftime('%H:%M:%S') #import full time
 timestamp = time.strftime('%H')
 h = int(timestamp) #import hour
 timestamp = time.strftime('%M')
@@ -16,16 +15,14 @@ print(show.center(60),'\n',t.center(57),'\n')
 
 #define a function that input user name which should be between 3 and 16
 def only_greet(name):
-    if len(name) < 3 :
-        print("Name should be greater than 3 words.")
-        while len(name) < 3 :
-            name = input("Your Name : ")
-    if len(name) > 16 :
-        print('Name should be smaller than 16 words.')
-        while len(name) > 16:
-            name = input("Your Name : ")  
-    print("Welcome,",name+'!')
-    
+    while True:
+        if len(name) < 3  or  len(name) > 16 :
+            print("Name shiuld be between 3 and 16 words.")
+            name = input("Your name : ").title()
+        else:
+            print("Welcome,", name.title() + '!')
+            break
+                
 #define a function that check the current time of the system, send greeting
 def timely_greet(name):
     if h>=6 and h<=11:
@@ -51,7 +48,7 @@ def timely_greet(name):
     else:
         print("Resfresh or Retry Again..")
         
-name = input("Your Name : ").title()#argument
+name = input("Your Name : ").strip().title() #argument
 timely_greet(name)
 
 print("\n","calculator\n".upper().center(60))
@@ -60,7 +57,7 @@ only_greet(name)
 
 #print(" ")
 
-do = ["Addition","Subtraction","Multiplication","Division", "Square"]
+do = ["Addition","Subtraction","Multiplication","Division", "Square","Square Root","Cube","Cube Root"]
 item = [x for x in range(1, len(do)+1)]
 operations = dict(zip(item,do))
 print("\nThis calculator will perform only below eperations : \n")
@@ -71,8 +68,8 @@ print(' ')
     
 def calc(operation):
     
-    a = int(input("\nEnter first number :")) #First number  
-    b = int(input("Enter second number :")) #Secind Number
+    a = int(input("\nEnter first number : ").strip()) #First number  
+    b = int(input("Enter second number : ").strip()) #Secind Number
     
     if operation == item[0]:
         print("\n\tSum of",a, "and", b, ":", a+b) 
@@ -88,7 +85,32 @@ def calc(operation):
     elif operation == item[4]:
         print("\n\tSquare of", a, ":",a**2) 
         print("\tSquare of", b, ":",b**2) 
+    elif operation == item[5]:
+        print("\n\tSquare root of",a,":",round(a**0.5, 2))
+        print(f"\tSquare root of {b} : {round(b**0.5, 2)}")
+    elif operation == item[6]:
+        print(f"Cube of {a} : {a**3}")
+        print(f"Cube of {b} : {b**3}")
+    elif operation == item[7]:
+        print(f"Cube root of {a} : {round(a**(1/3), 2)}")
+        print(f"Cube root of {b} : {round(b**(1/3),2)}")
     else:
         print("\nInvalid data, Please enter from the showing operations")
 
-calc(operation = int(input(f"Select from above(1-{len(do)}) : ")))
+operation = int(input(f"Select from above(1-{len(do)}) : "))
+calc(operation)
+
+try:
+    user = str(input("\nCalculate again? (YES/NO)\n").upper())
+    while True:
+        if user == "YES":
+            operation = int(input(f"\nSelect from above(1-{len(do)}) : "))
+            calc(operation)
+            user = str(input("\nCalculate again? (YES/NO)\n").upper())
+        elif user == "NO":
+            print("\nHave a nice day!",name)
+            break
+            
+except:        
+    if user != "YES" or user != "NO":
+        print("Type Error : YES or NO only")
